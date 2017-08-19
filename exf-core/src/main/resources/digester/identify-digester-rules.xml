@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<!DOCTYPE digester-rules PUBLIC
+        "-//Apache Commons //DTD digester-rules XML V1.0//EN"
+        "http://commons.apache.org/digester/dtds/digester-rules-3.0.dtd">
+
+<digester-rules>
+
+	<pattern value="identify">
+		<factory-create-rule
+			classname="net.uchoice.exf.core.identify.parse.rule.IdentifyCreatingFactory" />
+
+		<pattern value="matchers/matcher">
+			<factory-create-rule
+				classname="net.uchoice.exf.core.config.parser.rule.MatcherCreatingFactory" />
+
+			<set-next-rule methodname="addAvailableMatchers"
+				paramtype="net.uchoice.exf.core.matcher.Matcher" />
+		</pattern>
+
+		<pattern value="service-configs/service">
+			<object-create-rule
+				classname="net.uchoice.exf.core.identify.IdentifyServiceConfig" />
+			<set-properties-rule />
+
+			<pattern value="config">
+				<factory-create-rule
+					classname="net.uchoice.exf.core.identify.parse.rule.IdentifyConfigCreatingFactory" />
+
+				<set-next-rule methodname="addConfig"
+					paramtype="net.uchoice.exf.core.identify.IdentifyConfig" />
+			</pattern>
+
+			<set-next-rule methodname="addConfig"
+				paramtype="net.uchoice.exf.core.identify.IdentifyServiceConfig" />
+		</pattern>
+	</pattern>
+</digester-rules>

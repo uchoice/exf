@@ -1,0 +1,8 @@
+<exf-plugin key="exf.sample.plugin" name="exf Sample Plugin"
+              system="system" version="1.0.0" description="示例插件">
+
+	<packages>
+		net.uchoice.exf.sample.plugin
+	</packages>
+	
+</exf-plugin>

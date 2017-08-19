@@ -1,0 +1,6 @@
+<exf-plugin key="exf.apps.common" name="Common Plugin"
+              system="exf" version="1.0.0" description="Common Plugin">
+
+	<packages>net.uchoice.exf.app.common</packages>
+	
+</exf-plugin>

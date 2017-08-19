@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<!DOCTYPE digester-rules PUBLIC
+        "-//Apache Commons //DTD digester-rules XML V1.0//EN"
+        "http://commons.apache.org/digester/dtds/digester-rules-3.0.dtd">
+
+<digester-rules>
+    <pattern value="exf-plugin">
+        <object-create-rule classname="net.uchoice.exf.model.plugin.Plugin"/>
+        <set-properties-rule/>
+	    <bean-property-setter-rule pattern="packages" />
+    </pattern>
+</digester-rules>

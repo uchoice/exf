@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<identify id="sample.qiche" name="汽车行业" match="ddySignUser AND qicheBiz"
+	priority="20">
+	<matchers>
+		<matcher id="ddySignUser" type="userTag" test="ddy_biz_user"></matcher>
+		<matcher id="qicheBiz" type="expression" test="#bizCode == 'qiche'"></matcher>
+	</matchers>
+	<service-configs>
+		<service code="user.name.modify" version="1.0.0">
+			<config id="industryEnable" value="1"></config>
+			<config id="industry" value="2"></config>
+		</service>
+	</service-configs>
+</identify>
