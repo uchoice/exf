@@ -36,7 +36,7 @@ public class SpringBooter {
 		System.out.println("Cost:" + (System.currentTimeMillis() - time));
 		System.out.println(response.isSuccess());
 		if (response.isSuccess()) {
-			response.getResult().forEach((k, v) -> {
+			response.getResults().forEach((k, v) -> {
 				System.out.println(k + ":" + v);
 			});
 		} else {

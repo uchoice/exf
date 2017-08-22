@@ -136,6 +136,7 @@ public class ExfRuntimeServiceImpl implements ExfRuntimeService {
 			response.setSuccess(false);
 		}
 		response.setResult(result.getModel());
+		response.getResults().put(ExfResponse.RESULT_KEY, result.getResult());
 	}
 
 	/**
