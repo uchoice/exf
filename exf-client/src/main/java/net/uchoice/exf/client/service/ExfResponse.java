@@ -4,6 +4,8 @@ import java.util.Map;
 
 public class ExfResponse {
 	
+	public static final String RESULT_KEY = "_result";
+	
 	private boolean success = true;
 	
 	private int resultCode;
@@ -22,8 +24,16 @@ public class ExfResponse {
 		this.success = success;
 	}
 
-	public Map<String, Object> getResult() {
+	public Map<String, Object> getResults() {
 		return result;
+	}
+	
+	public Object getResult() {
+		return result == null ? null : result.get(RESULT_KEY);
+	}
+	
+	public Object getResult(String key) {
+		return result == null ? null : result.get(key);
 	}
 
 	public void setResult(Map<String, Object> result) {
