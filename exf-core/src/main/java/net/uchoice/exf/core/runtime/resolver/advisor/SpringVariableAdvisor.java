@@ -13,6 +13,7 @@ import net.uchoice.exf.model.variable.VariableAdvisor;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 
 public class SpringVariableAdvisor implements VariableAdvisor {
 	
@@ -26,8 +27,13 @@ public class SpringVariableAdvisor implements VariableAdvisor {
 	public Object evaluate(Variable variable) {
 		ExfTracker.start(Record.create(RecordType.VARIABLE, getClass().getName()).addInput(variable));
 		try {
-			Object result = SpringApplicationContextHolder.getSpringBean(variable.getValue().replace(PARTTEN, ""),
-					variable.getVariableSpec().getType());
+			Object result = null;
+			try {
+				result = SpringApplicationContextHolder.getSpringBean(variable.getValue().replace(PARTTEN, ""),
+						variable.getVariableSpec().getType());
+			} catch (BeansException e) {
+				LOG.error(String.format("spring bean name[%s] not found", variable.getValue().replace(PARTTEN, "")), e);
+			}
 			if (null == result) {
 				LOG.debug(String.format("spring bean name[%s] not found", variable.getValue().replace(PARTTEN, "")));
 				// 按照类型进行查找
