@@ -1,5 +1,7 @@
 package net.uchoice.exf.core.runtime.resolver.advisor;
 
+import java.util.Map;
+
 import net.uchoice.exf.client.exception.ErrorMessage;
 import net.uchoice.exf.client.exception.ExfRuntimeException;
 import net.uchoice.exf.core.trace.ExfTracker;
@@ -9,8 +11,12 @@ import net.uchoice.exf.core.util.SpringApplicationContextHolder;
 import net.uchoice.exf.model.variable.Variable;
 import net.uchoice.exf.model.variable.VariableAdvisor;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SpringVariableAdvisor implements VariableAdvisor {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(SpringVariableAdvisor.class);
 
 	private static final String PARTTEN = "spring:";
 
@@ -22,6 +28,20 @@ public class SpringVariableAdvisor implements VariableAdvisor {
 		try {
 			Object result = SpringApplicationContextHolder.getSpringBean(variable.getValue().replace(PARTTEN, ""),
 					variable.getVariableSpec().getType());
+			if (null == result) {
+				LOG.debug(String.format("spring bean name[%s] not found", variable.getValue().replace(PARTTEN, "")));
+				// 按照类型进行查找
+				Map<String, ?> beans = SpringApplicationContextHolder
+						.getSpringBeans(variable.getVariableSpec().getType());
+				if (null != beans && !beans.isEmpty()) {
+					LOG.debug(String.format("spring bean type[%s] find [%s] instances",
+							variable.getVariableSpec().getType(), beans.size()));
+					String beanName = beans.keySet().iterator().next();
+					result = beans.get(beanName);
+					LOG.debug(String.format("spring bean name[%s] wired by type[%s], instance name[%s]",
+							variable.getValue().replace(PARTTEN, ""), variable.getVariableSpec().getType(), beanName));
+				}
+			}
 			ExfTracker.stop(result);
 			return result;
 		} catch (Throwable e) {

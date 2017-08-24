@@ -1,5 +1,7 @@
 package net.uchoice.exf.core.util;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -71,6 +73,10 @@ public class SpringApplicationContextHolder implements ApplicationContextAware {
         String beanName = StringUtils.uncapitalize(beanClass.getSimpleName());
         return getSpringBean(beanName);
     }
+    
+    public static <T> Map<String, T> getSpringBeans(@Nonnull Class<T> beanClass) {
+		return context.getBeansOfType(beanClass);
+	}
 
     /**
      * get spring bean names.
