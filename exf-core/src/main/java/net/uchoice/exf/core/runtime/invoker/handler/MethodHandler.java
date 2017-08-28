@@ -94,6 +94,7 @@ public class MethodHandler implements ActionHandler {
 			if ((Boolean) obj == false) {
 				result.setState(ActionState.FAIL);
 			}
+			result.setResult(obj);
 		} else if (obj instanceof ActionResult) {
 			result = (ActionResult) obj;
 		} else {
