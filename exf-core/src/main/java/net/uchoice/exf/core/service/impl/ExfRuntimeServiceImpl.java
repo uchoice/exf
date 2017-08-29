@@ -41,7 +41,10 @@ public class ExfRuntimeServiceImpl implements ExfRuntimeService {
 			}
 			// 建立服务会话
 			session = Session.create(request);
-			ExfTracker.start(Record.create(RecordType.SESSION, request.toString()));
+			ExfTracker.start(Record
+					.create(RecordType.SESSION,
+							ServiceManager.buildServiceKey(request.getServiceCode(), request.getVersion()))
+					.addInput(request));
 			// 查询Service
 			Service service = ServiceManager.getInstance().getService(request.getServiceCode(), request.getVersion());
 			if (service == null) {
