@@ -38,14 +38,12 @@ public class Context {
 					valueMap.put(uid, model.get(key));
 				}
 			}
-			if (null != actionResult.getResult()) {
-				Map<String, Object> valueMap = context.get(ACTION_RESULT_KEY);
-				if (null == valueMap) {
-					valueMap = new HashMap<>();
-					context.put(ACTION_RESULT_KEY, valueMap);
-				}
-				valueMap.put(uid, actionResult.getResult());
+			Map<String, Object> valueMap = context.get(ACTION_RESULT_KEY);
+			if (null == valueMap) {
+				valueMap = new HashMap<>();
+				context.put(ACTION_RESULT_KEY, valueMap);
 			}
+			valueMap.put(uid, actionResult.getResult());
 		}
 	}
 
