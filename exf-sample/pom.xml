@@ -46,11 +46,6 @@
 			<!--spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
-				<artifactId>spring</artifactId>
-				<version>999-not-exist</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>3.2.11.RELEASE</version>
 			</dependency>

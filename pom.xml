@@ -10,6 +10,7 @@
 		<module>exf-core</module>
 		<module>exf-model</module>
 		<module>exf-plugin-common</module>
+		<module>exf-sample</module>
 	</modules>
 	<properties>
 		<version.jdk>1.8</version.jdk>
@@ -78,11 +79,6 @@
 				<version>1.7</version>
 			</dependency>
 			<!--spring -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring</artifactId>
-				<version>999-not-exist</version>
-			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
