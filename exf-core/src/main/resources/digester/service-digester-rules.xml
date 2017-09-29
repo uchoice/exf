@@ -4,54 +4,68 @@
         "http://commons.apache.org/digester/dtds/digester-rules-3.0.dtd">
 
 <digester-rules>
-	<pattern value="service">
-		<object-create-rule classname="net.uchoice.exf.core.config.Service" />
-		<set-properties-rule />
+    <pattern value="service">
+        <object-create-rule classname="net.uchoice.exf.core.config.Service"/>
+        <set-properties-rule/>
 
-		<pattern value="containers/container">
-			<factory-create-rule
-				classname="net.uchoice.exf.core.config.parser.rule.ContainerCreatingFactory" />
+        <pattern value="containers/container">
+            <factory-create-rule
+                    classname="net.uchoice.exf.core.config.parser.rule.ContainerCreatingFactory"/>
 
-			<pattern value="actions/action">
-				<factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.ActionCreatingFactory" />
-				
-					<pattern value="variables/variable">
-						<factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.VariableCreatingFactory" />
-					
-						<set-next-rule methodname="addVariable"
-							paramtype="net.uchoice.exf.model.variable.Variable" />
-					</pattern>
+            <pattern value="actions/action">
+                <factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.ActionCreatingFactory"/>
 
-				<set-next-rule methodname="addAction"
-						paramtype="net.uchoice.exf.model.action.ActionInst" />
-			</pattern>
-			
-			<pattern value="actions/script">
-				<factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.ScriptActionCreatingFactory" />
-				<bean-property-setter-rule pattern="expression" />
+                <pattern value="fileds/filed">
+                    <factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.ActionFiledCreatingFactory"/>
 
-				<set-next-rule methodname="addAction"
-						paramtype="net.uchoice.exf.model.action.ActionInst" />
-			</pattern>
+                    <set-next-rule methodname="addVariable"
+                                   paramtype="net.uchoice.exf.model.variable.Variable"/>
+                </pattern>
 
-			<set-next-rule methodname="addContainer"
-				paramtype="net.uchoice.exf.model.container.ContainerInst" />
-		</pattern>
-		
-		<pattern value="configs/config">
-			<factory-create-rule
-				classname="net.uchoice.exf.core.config.parser.rule.ServiceConfigCreatingFactory" />
+                <pattern value="parameters/parameter">
+                    <factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.ParameterCreatingFactory"/>
 
-			<set-next-rule methodname="addConfig"
-				paramtype="net.uchoice.exf.core.config.ServiceConfig" />
-		</pattern>
-		
-		<pattern value="matchers/matcher">
-			<factory-create-rule
-				classname="net.uchoice.exf.core.config.parser.rule.MatcherCreatingFactory" />
+                    <set-next-rule methodname="addVariable"
+                                   paramtype="net.uchoice.exf.model.variable.Variable"/>
+                </pattern>
 
-			<set-next-rule methodname="addMatcher"
-				paramtype="net.uchoice.exf.core.matcher.Matcher" />
-		</pattern>
-	</pattern>
+                <pattern value="variables/variable">
+                    <factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.VariableCreatingFactory"/>
+
+                    <set-next-rule methodname="addVariable"
+                                   paramtype="net.uchoice.exf.model.variable.Variable"/>
+                </pattern>
+
+                <set-next-rule methodname="addAction"
+                               paramtype="net.uchoice.exf.model.action.ActionInst"/>
+            </pattern>
+
+            <pattern value="actions/script">
+                <factory-create-rule classname="net.uchoice.exf.core.config.parser.rule.ScriptActionCreatingFactory"/>
+                <bean-property-setter-rule pattern="expression"/>
+
+                <set-next-rule methodname="addAction"
+                               paramtype="net.uchoice.exf.model.action.ActionInst"/>
+            </pattern>
+
+            <set-next-rule methodname="addContainer"
+                           paramtype="net.uchoice.exf.model.container.ContainerInst"/>
+        </pattern>
+
+        <pattern value="configs/config">
+            <factory-create-rule
+                    classname="net.uchoice.exf.core.config.parser.rule.ServiceConfigCreatingFactory"/>
+
+            <set-next-rule methodname="addConfig"
+                           paramtype="net.uchoice.exf.core.config.ServiceConfig"/>
+        </pattern>
+
+        <pattern value="matchers/matcher">
+            <factory-create-rule
+                    classname="net.uchoice.exf.core.config.parser.rule.MatcherCreatingFactory"/>
+
+            <set-next-rule methodname="addMatcher"
+                           paramtype="net.uchoice.exf.core.matcher.Matcher"/>
+        </pattern>
+    </pattern>
 </digester-rules>

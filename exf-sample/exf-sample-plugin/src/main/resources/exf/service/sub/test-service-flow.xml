@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <service name="修改用户姓名" code="user.name.modify" version="1.0.0">
-	<containers>
-		<container name="checker" code="net.uchoice.exf.app.common.container.OnceFailedContainer" uid="c1">
-			<actions>
-				<action name="用户ID非空" code="net.uchoice.exf.app.common.action.NullCheck" uid="a1">
-				 	<variables>
-						<variable mode="in" name="obj" value="#id"></variable>
-				 	</variables>
-				</action>
-				<action name="用户ID存在" code="p.l.a.UserExistCheck" uid="a2">
-				 	<variables>
-						<variable mode="in" name="id" value="#id"></variable>
-						<variable mode="prop" name="userDao" value="spring:userDao"></variable>
-				 	</variables>
-				</action>
-				<action name="指定年龄段用户才能修改姓名" code="p.l.a.UserAgeCheck" uid="a3">
-				 	<variables>
-						<variable mode="in" name="age" value="#user.age"></variable>
-						<variable mode="prop" name="range" value="[6,7,8,9,10]"></variable>
-				 	</variables>
-				</action>
-				<action name="用户名是否合法" code="p.l.a.UserNameCheck" uid="a4">
-				 	<variables>
-						<variable mode="in" name="name" value="#name"></variable>
-				 	</variables>
-				</action>
-			</actions>
-		</container>
-		<container name="update" code="net.uchoice.exf.app.common.container.AllExecuteContainer" uid="c2">
-			<actions>
-				<script type="groovy" name="输出变更后用户信息" uid="a71">
-				 	<expression>
-				 		<![CDATA[
+    <containers>
+        <container name="checker" code="net.uchoice.exf.app.common.container.OnceFailedContainer" uid="c1">
+            <actions>
+                <action name="用户ID非空" code="net.uchoice.exf.app.common.action.NullCheck" uid="a1">
+                    <parameters>
+                        <parameter mode="in" name="obj" value="#id"/>
+                    </parameters>
+                </action>
+                <action name="用户ID存在" code="p.l.a.UserExistCheck" uid="a2">
+                    <fileds>
+                        <filed name="userDao" value="spring:userDao"/>
+                    </fileds>
+                    <parameters>
+                        <parameter name="id" value="#id"/>
+                    </parameters>
+                </action>
+                <action name="指定年龄段用户才能修改姓名" code="p.l.a.UserAgeCheck" uid="a3">
+                    <fileds>
+                        <filed name="range" value="[6,7,8,9,10]"/>
+                    </fileds>
+                    <parameters>
+                        <parameter name="age" value="#user.age"/>
+                    </parameters>
+                </action>
+                <action name="用户名是否合法" code="p.l.a.UserNameCheck" uid="a4">
+                    <parameters>
+                        <parameter name="name" value="#name"/>
+                    </parameters>
+                </action>
+            </actions>
+        </container>
+        <container name="update" code="net.uchoice.exf.app.common.container.AllExecuteContainer" uid="c2">
+            <actions>
+                <script type="groovy" name="输出变更后用户信息" uid="a71">
+                    <expression>
+                        <![CDATA[
 				 			out.put('name',user.getName());
 				 			out.put('age',user.getAge());
 				 		]]>
-				 	</expression>
-				</script>
-				<script type="groovy" name="用户信息封装" uid="a5">
-				 	<expression>
-				 		<![CDATA[
+                    </expression>
+                </script>
+                <script type="groovy" name="用户信息封装" uid="a5">
+                    <expression>
+                        <![CDATA[
 				 			user.setName(a71.name);
 				 		]]>
-				 	</expression>
-				</script>
-				<script type="groovy" name="用户信息封装" uid="a51">
-				 	<expression>
-				 		<![CDATA[
+                    </expression>
+                </script>
+                <script type="groovy" name="用户信息封装" uid="a51">
+                    <expression>
+                        <![CDATA[
 				 			user.setAge(Integer.valueOf(_config.industry));
 				 		]]>
-				 	</expression>
-				</script>
-				<action name="修改用户姓名" code="p.l.a.UpdateUser" uid="a6">
-				 	<variables>
-						<variable mode="in" name="user" value="#user"></variable>
-						<variable mode="prop" name="userDao" value="spring:userDao"></variable>
-				 	</variables>
-				</action>
-				<script type="groovy" name="输出变更后用户信息" uid="a77" match="m1 and (m2 or (m3 and m4)) or m5">
-				 	<expression>
-				 		<![CDATA[
+                    </expression>
+                </script>
+                <action name="修改用户姓名" code="p.l.a.UpdateUser" uid="a6">
+                    <fileds>
+                        <filed name="userDao" value="spring:userDao"/>
+                    </fileds>
+                    <parameters>
+                        <parameter name="user" value="#user"/>
+                    </parameters>
+                </action>
+                <script type="groovy" name="输出变更后用户信息" uid="a77" match="m1 and (m2 or (m3 and m4)) or m5">
+                    <expression>
+                        <![CDATA[
 				 		    import net.uchoice.exf.sample.plugin.model.User;
 				 		    
 				 			List<User> users = new ArrayList<User>();
@@ -71,11 +77,11 @@
 				 			users.add(u2);
 							out.put("users", users);
 				 		]]>
-				 	</expression>
-				</script>
-				<script type="groovy" name="输出变更后用户信息" uid="a7" match="m1 and (m2 or (m3 and m4)) or m5">
-				 	<expression>
-				 		<![CDATA[
+                    </expression>
+                </script>
+                <script type="groovy" name="输出变更后用户信息" uid="a7" match="m1 and (m2 or (m3 and m4)) or m5">
+                    <expression>
+                        <![CDATA[
 				 		  import net.uchoice.exf.sample.plugin.model.User;
 				 			List<Map<String,Object>> retlist = new ArrayList<Map<String,Object>>();
 				 			if (null != a77.users) {
@@ -91,22 +97,22 @@
 							};
 							out.put("data", retlist);
 				 		]]>
-				 	</expression>
-				</script>
-			</actions>
-		</container>
-	</containers>
-	
-	<configs>
-		<config id="industryEnable" label="是否透出行业分析" type="enum" options="1:是;2:否"></config>
-		<config id="industry" label="主营行业选项" type="enum" options="1:家装;2:汽车;3:服饰"></config>
-	</configs>
-	
-	<matchers>
-		<matcher id="m1" type="expression" test="1 == 2"></matcher>
-		<matcher id="m2" type="expression" test="1 == 1"></matcher>
-		<matcher id="m3" type="expression" test="1 == 1"></matcher>
-		<matcher id="m4" type="expression" test="1 == 1"></matcher>
-		<matcher id="m5" type="expression" test="2 == #_config.industryEnable"></matcher>
-	</matchers>
+                    </expression>
+                </script>
+            </actions>
+        </container>
+    </containers>
+
+    <configs>
+        <config id="industryEnable" label="是否透出行业分析" type="enum" options="1:是;2:否"></config>
+        <config id="industry" label="主营行业选项" type="enum" options="1:家装;2:汽车;3:服饰"></config>
+    </configs>
+
+    <matchers>
+        <matcher id="m1" type="expression" test="1 == 2"></matcher>
+        <matcher id="m2" type="expression" test="1 == 1"></matcher>
+        <matcher id="m3" type="expression" test="1 == 1"></matcher>
+        <matcher id="m4" type="expression" test="1 == 1"></matcher>
+        <matcher id="m5" type="expression" test="2 == #_config.industryEnable"></matcher>
+    </matchers>
 </service>
