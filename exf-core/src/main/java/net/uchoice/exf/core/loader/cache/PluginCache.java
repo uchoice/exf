@@ -56,6 +56,10 @@ public class PluginCache extends SimpleCache {
         return getAllCacheEntities(CACHE_ACTION_SPEC);
     }
 
+    public List<ContainerSpec> getAllContainerSpec() {
+        return getAllCacheEntities(CACHE_CONTAINER_SPEC);
+    }
+
     public void cacheAction(ActionInst container) {
         if (null != container) {
             doCacheObject(CACHE_ACTION, container.getUid(), container);

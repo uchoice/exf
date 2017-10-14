@@ -3,6 +3,7 @@ package net.uchoice.exf.design.action;
 import java.util.List;
 
 import lombok.Data;
+import net.uchoice.exf.design.ExfComponent;
 
 /**
  * @author CodeDoge 2017/10/12
@@ -10,7 +11,7 @@ import lombok.Data;
  * @since 1.0
  */
 @Data
-public class ExfAction {
+public class ExfAction extends ExfComponent {
 
     /** 编码 */
     private String code;
