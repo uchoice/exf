@@ -1,5 +1,8 @@
 package net.uchoice.exf.design.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import net.uchoice.exf.core.config.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +20,15 @@ public class FindServiceController {
     private ServiceManager serviceManager;
 
     @GetMapping("/services")
-    public Object findAllAction() {
-        return serviceManager.getServiceMap();
+    public List<ExfService> findAllAction() {
+        return serviceManager.getServiceMap().values().stream().map((service) -> {
+            ExfService exfService = new ExfService();
+            exfService.setCode(service.getCode());
+            exfService.setName(service.getName());
+            exfService.setVersion(service.getVersion());
+            exfService.setConfigs(service.getConfigs());
+            return exfService;
+        }).collect(Collectors.toList());
     }
 
 }
