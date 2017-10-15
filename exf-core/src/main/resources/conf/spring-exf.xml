@@ -7,8 +7,8 @@
 
     <bean id="exfBeanHolder" class="net.uchoice.exf.core.util.SpringApplicationContextHolder"/>
     <!-- 插件自动化加载管理器 -->
-    <bean id="exfPluginManager" class="net.uchoice.exf.core.loader.PluginManager"
-          init-method="getInstance" depends-on="exfBeanHolder"/>
+    <bean id="pluginManager" class="net.uchoice.exf.core.loader.PluginManagerLoader"
+          depends-on="exfBeanHolder"/>
     <!-- -->
     <bean id="exfConfigLoader" class="net.uchoice.exf.core.config.ResourceBasedConfig"
           init-method="init" depends-on="exfBeanHolder"/>
